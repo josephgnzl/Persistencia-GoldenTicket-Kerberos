@@ -32,3 +32,22 @@ Acceso al dominio
 Persistencia (válido hasta que se rote la credencial de krbtgt)
 
 ```
+
+## 2. Reproducción
+
+### 2.1 Obtención del secreto de `krbtgt`
+
+Como primer paso  ejecutamos un ataque **DCSync** contra la cuenta `krbtgt` del dominio. El objetivo es solicitar al controlador de dominio el material de autenticación asociado a esta cuenta y obtener su ```NT hash```.
+
+Para la reproducción se utiliza `secretsdump.py` de Impacket con la opción `-just-dc-user`, limitando la extracción específicamente a `krbtgt`:
+
+```bash
+impacket-secretsdump raynex.lab/raynexuser-sa:'Raynex2026'@10.0.0.46 -just-dc-user krbtgt
+```
+
+La ejecución requiere que la cuenta utilizada disponga de los privilegios necesarios para realizar una operación DCSync sobre el dominio.
+
+El resultado esperado es la información asociada a la cuenta `krbtgt`, incluyendo su ```NT hash```, que posteriormente puede utilizarse para reproducir técnicas de abuso de Kerberos como ```Golden Ticket```.
+
+
+
