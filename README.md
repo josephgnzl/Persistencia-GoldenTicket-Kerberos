@@ -6,3 +6,29 @@ La técnica se basa en comprometer la clave secreta de la cuenta krbtgt, utiliza
 A diferencia de comprometer una cuenta individual, obtener la clave de krbtgt representa un compromiso mucho más profundo del dominio, ya que permite la creación de identidades Kerberos arbitrarias y puede utilizarse como mecanismo de persistencia prolongada. 
 
 Para realizar el ataque, se deben tener credenciales y accesos privilegiados dentro del dominio.
+
+## Cadena de Ataque (Flujo) 
+```
+Acceso Administrativo
+        ↓
+Domain Controller
+        ↓
+DCSync (secretsdump.py -just-dc-user krbtgt)
+        ↓
+Hash AES256 de krbtgt
+        ↓
+Forjar TGT (ticketer.py -aesKey)
+        ↓
+Administrator.ccache (TGT falsificado)
+        ↓
+Pedir TGS (getST.py -spn cifs/<FQDN_DC>)
+        ↓
+TGS válido
+        ↓
+Pass-The-Ticket (pseexec / wmiexec)
+        ↓
+Acceso al dominio
+        ↓
+Persistencia (válido hasta que se rote la credencial de krbtgt)
+
+```
