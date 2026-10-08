@@ -7,7 +7,7 @@ A diferencia de comprometer una cuenta individual, obtener la clave de krbtgt re
 
 Para realizar el ataque, se deben tener credenciales y accesos privilegiados dentro del dominio.
 
-## Cadena de Ataque (Flujo) 
+## 1. Cadena de Ataque (Flujo) 
 ```
 Acceso Administrativo
         ↓
