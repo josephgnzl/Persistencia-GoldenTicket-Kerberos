@@ -21,11 +21,11 @@ Forjar TGT (ticketer.py -aesKey)
         ↓
 Administrator.ccache (TGT falsificado)
         ↓
-Pedir TGS (getST.py -spn cifs/<FQDN_DC>)
+Pedir TGS (getST.py -spn cifs)
         ↓
 TGS válido
         ↓
-Pass-The-Ticket (pseexec / wmiexec)
+Pass-The-Ticket (pseexec)
         ↓
 Acceso al dominio
         ↓
